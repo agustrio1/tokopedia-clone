@@ -1,6 +1,7 @@
 import React from 'react'
 import CarouselComponent from '../components/carousel/Carousel'
 import CategoryMenu from '../components/category/CategoryMenu'
+import Card from '../components/Card'
 
 function HomePage() {
   return (
@@ -10,6 +11,9 @@ function HomePage() {
       </div>
       <div>
         <CategoryMenu/>
+      </div>
+      <div>
+        <Card/>
       </div>
     </div>
   )
