@@ -10,7 +10,7 @@ const CarouselComponent = () => {
   ];
 
   return (
-    <div className="max-w-screen-md mx-auto">
+    <div className="max-w-screen-md mx-auto mt-8">
       <Carousel 
         autoPlay 
         infiniteLoop 
