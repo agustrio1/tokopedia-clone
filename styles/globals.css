@@ -9,3 +9,7 @@
 .zIndex {
   z-index: -1;
 }
+
+.slick-slide {
+  border: none !important;
+}

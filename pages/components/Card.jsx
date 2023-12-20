@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
-const Card = (props) => {
+const Card = ({productId}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
