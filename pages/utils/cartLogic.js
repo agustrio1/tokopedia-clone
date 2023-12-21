@@ -2,6 +2,7 @@ import {
     retrieveCartWithProductDetails,
     updateCartItem,
     deleteCartItem,
+    DeleteAllCart,
   } from "../firebase/service";
   
   export const fetchCartData = async (setCartData) => {
@@ -50,4 +51,13 @@ import {
   export const handleRemoveItem = async (itemId, setCartData) => {
     await deleteCartItem(itemId);
     fetchCartData(setCartData);
+  };
+  
+  export const handleDeleteAll = async (selectedIds, setCartData) => {
+    try {
+      await DeleteAllCart();
+      fetchCartData(setCartData);
+    } catch (error) {
+      console.error("Error deleting all cart items:", error);
+    }
   };

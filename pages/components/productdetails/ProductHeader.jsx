@@ -48,7 +48,9 @@ function ProductHeader() {
             <IoShareSocialOutline size={24} />
           </button>
           <button className="text-lg text-gray-700" disabled>
+            <a href="/keranjang">
             <BiCart size={24} />
+            </a>
           </button>
           <span
             onClick={openNav}

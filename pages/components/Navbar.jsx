@@ -46,7 +46,7 @@ const Navbar = () => {
               <IoIosNotificationsOutline className="text-gray-900" size={24} />
             </button>
           </Link>
-          <Link href="/login">
+          <Link href="/keranjang">
             <button className="bg-white p-2 rounded-lg cursor-pointer">
               <BiCart className="text-gray-900" size={24} />
             </button>

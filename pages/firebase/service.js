@@ -125,3 +125,14 @@ export const deleteCartItem = async (cartItemId) => {
   const cartItemRef = doc(firestore, "cart", cartItemId);
   await deleteDoc(cartItemRef);
 }
+
+export const DeleteAllCart = async () => {
+ const collectionRef = collection(firestore, "cart"); 
+ const cartSnapshot = await getDocs(collectionRef);
+ 
+ const deletionPromises = cartSnapshot.docs.map(async (doc) => {
+  await deleteDoc(doc.ref);
+});
+
+  await Promise.all(deletionPromises)
+}
