@@ -48,7 +48,7 @@ function ProductDetails({ productId }) {
           <p className={`text-gray-700 mb-4`}>{product.description}</p>
         </div>
       </div>
-      <ProductButton/>
+      <ProductButton productId={productId}/>
     </div>
   );
 }
