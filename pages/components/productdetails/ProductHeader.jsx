@@ -5,6 +5,7 @@ import { RxHamburgerMenu } from 'react-icons/rx'
 import { BiCart } from 'react-icons/bi'
 import OffCanvasMenu from '../OffCanvasMenu'
 import { useHeaderContext } from '@/pages/context/HeaderContext'
+import Link from 'next/link'
 
 function ProductHeader() {
     const {
@@ -36,9 +37,9 @@ function ProductHeader() {
           background: `linear-gradient(to bottom, ${headerBackground.startColor}, ${headerBackground.endColor})`,
         }}>
         <div>
-          <a href="/" className="text-lg text-gray-700">
+          <Link href="/" className="text-lg text-gray-700">
             <IoArrowBack size={24} className="ml-8" />
-          </a>
+          </Link>
         </div>
         <div className="flex space-x-4">
           <button className="text-lg text-gray-700" disabled>
@@ -48,9 +49,9 @@ function ProductHeader() {
             <IoShareSocialOutline size={24} />
           </button>
           <button className="text-lg text-gray-700" disabled>
-            <a href="/keranjang">
+            <Link href="/keranjang">
             <BiCart size={24} />
-            </a>
+            </Link>
           </button>
           <span
             onClick={openNav}
