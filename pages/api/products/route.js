@@ -1,4 +1,4 @@
-import { retriveData, retriveDataById } from "../firebase/service";
+import { retriveData, retriveDataById } from "../firebase/service.js";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
