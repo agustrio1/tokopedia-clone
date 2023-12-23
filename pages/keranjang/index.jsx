@@ -17,6 +17,8 @@ function Cart() {
   const [cartData, setCartData] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectAll, setSelectAll] = useState(true);
+  const [wishlistItems, setWishlistItems] = useState([]);
+
 
   useEffect(() => {
     fetchCartData(setCartData);
@@ -49,6 +51,14 @@ function Cart() {
   const handleBuyCart = () => {
     console.log("Total:", getTotal());
   };
+
+  const handleToggleWishlist = (itemId) => {
+    setWishlistItems((prevWishlist) =>
+    prevWishlist.includes(itemId)
+      ? prevWishlist.filter((id) => id !== itemId)
+      : [...prevWishlist, itemId]
+    );
+  }
 
   return (
     <div className="mt-20 overflow-y-auto max-w-screen-[600px]">
@@ -93,7 +103,9 @@ function Cart() {
               </p>
               <div className="flex items-center mt-4 mx-auto">
                 <div className="mr-auto">
-                  <FaHeart />
+                  <FaHeart 
+                  onClick={() => handleToggleWishlist(item.id)}
+                  className={wishlistItems.includes(item.id) ? "text-pink-500" : ""}/>
                 </div>
                 <div className="absolute top-1/2 transform -translate-y-1/2 right-0 mt-8">
                   <div className="flex items-center border border-gray-300 p-1 rounded-md">

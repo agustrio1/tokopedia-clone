@@ -50,14 +50,14 @@ function ProductButton({ productId }) {
   return (
     <>
       <footer className={`fixed max-w-[600px] bottom-0 left-0 right-0 p-4 flex justify-between items-center mx-auto`}>
-        <button className={`text-lg text-gray-700 p-2 border rounded-md box-border mr-6 ml-6`} onClick={handleClosePopup}>
+        <button className={`text-md text-gray-700 p-1 border rounded-md box-border mr-3 ml-6`} onClick={handleClosePopup}>
           <BiMessage />
         </button>
-        <button onClick={handlePopup} className={`text-lg p-2 border-green-600 w-full border rounded-md box-border mr-4`}>
-          <span className="text-green-600 text-md font-bold">Beli</span>
+        <button onClick={handlePopup} className={`text-md p-1 border-green-600 w-full border rounded-md box-border mr-4`}>
+          <span className="text-green-600 text-sm md:text-md font-semibold md:font-bold">Beli</span>
         </button>
-        <button onClick={handlePopup} className={`text-lg text-white p-2 w-full bg-green-600 border rounded-md box-border mr-6`}>
-          <span className="text-md font-bold">+ Tambah Keranjang</span>
+        <button onClick={handlePopup} className={`text-md text-white p-1 w-full bg-green-600 border rounded-md box-border mr-6`}>
+          <span className="text-sm md:text-md font-semibold md:font-bold">+ Tambah Keranjang</span>
         </button>
       </footer>
 
@@ -66,11 +66,11 @@ function ProductButton({ productId }) {
           <FaTimes />
         </button>
         <div className="flex">
-          <button onClick={handleCheckout} className={`text-lg p-2 border-green-600 w-full border rounded-md box-border mr-4`}>
-            <span className="text-green-600 text-md font-bold">Beli</span>
+          <button onClick={handleCheckout} className={`text-sm p-1 border-green-600 w-full border rounded-md box-border mr-4`}>
+            <span className="text-green-600 text-sm md:text-md font-semibold md:font-bold">Beli</span>
           </button>
-          <button onClick={handleCart} className={`text-lg text-white p-2 w-full bg-green-600 border rounded-md box-border mr-6`}>
-            <span className="text-md font-bold">+ Tambah Keranjang</span>
+          <button onClick={handleCart} className={`text-md text-white p-1 w-full bg-green-600 border rounded-md box-border mr-6`}>
+            <span className="text-sm md:text-md font-semibold md:font-bold">+ Tambah Keranjang</span>
           </button>
         </div>
       </animated.div>
