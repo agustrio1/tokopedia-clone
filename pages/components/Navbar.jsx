@@ -5,7 +5,7 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { BiCart } from "react-icons/bi";
 import { useRouter } from "next/router";
-import OffCanvasMenu from "@/pages/components/OffCanvasMenu";
+import OffCanvasMenu from "@/pages/components/offCanvasMenu";
 
 const Navbar = () => {
   const router = useRouter();
