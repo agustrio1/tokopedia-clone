@@ -3,7 +3,7 @@ import { IoArrowBack, IoShareSocialOutline } from "react-icons/io5";
 import { AiOutlineSearch } from "react-icons/ai";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { BiCart } from "react-icons/bi";
-import OffCanvasMenu from "@/pages/components/offCanvasMenu";
+import OffCanvasMenu from "@/pages/components/offCanvasMenu.jsx";
 import { useHeaderContext } from "@/pages/context/HeaderContext";
 import Link from "next/link";
 
