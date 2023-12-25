@@ -4,9 +4,12 @@ import ProductHeader from "./ProductHeader";
 import { useRouter } from "next/router";
 import ProductImageSwiper from "./ProductImageSwiper";
 import ProductButton from "./ProductButton";
+import { FaHeart } from "react-icons/fa";
+import { addToWishlist, removeFromWishlist, isProductInWishlist } from "../../firebase/service";
 
 function ProductDetails({ productId }) {
   const [product, setProduct] = useState(null);
+  const [isInWishlist, setIsInWishlist] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -24,6 +27,37 @@ function ProductDetails({ productId }) {
     fetchProduct();
 
   }, [productId]);
+
+  useEffect(() => {
+    const checkWishlist = async () => {
+      if (productId) {
+        const isInWishlist = await isProductInWishlist(productId);
+        setIsInWishlist(isInWishlist);
+      }
+    };
+
+    checkWishlist();
+  }, [productId]);
+
+  const handleToggleWishlist = async () => {
+    try {
+      if (isInWishlist) {
+        removeFromWishlist(productId)
+        .then(() => {
+          console.log("Produk dihapus dari wishlist.");
+          setIsInWishlist(false);
+        })
+        .catch((error) => {
+          console.error("Error menghapus produk dari wishlist:", error);
+        });
+      } else {
+        await addToWishlist(productId, product);
+      }
+      setIsInWishlist(!isInWishlist);
+    } catch (error) {
+      console.error("Error mengelola wishlist:", error);
+    }
+  }
 
   if (!product) {
     return <div>Loading...</div>;
@@ -43,8 +77,17 @@ function ProductDetails({ productId }) {
           <p className={`text-md md:text-xl font-bold mb-2`}>{product.name}</p>
           <p className={`text-gray-500 mb-2`}>{product.category}</p>
           <p className={`text-black font-bold mb-2 text-lg`}>
-            Rp. {new Intl.NumberFormat("id-ID").format(product.price)}
-          </p>
+          Rp.{" "}
+          <span className="flex items-center">
+            {new Intl.NumberFormat("id-ID").format(product.price)}
+            <FaHeart
+              className={`ml-2 cursor-pointer ${
+                isInWishlist ? "text-red-500" : "text-gray-500"
+              }`}
+              onClick={handleToggleWishlist}
+            />
+          </span>
+        </p>
           <p className={`text-gray-700 mb-4`}>{product.description}</p>
         </div>
       </div>

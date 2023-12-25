@@ -10,7 +10,6 @@ import {
   FaMinus,
   FaTrash,
   FaHeart,
-  FaCheckCircle,
 } from "react-icons/fa";
 
 function Cart() {
@@ -53,12 +52,7 @@ function Cart() {
   };
 
   const handleToggleWishlist = (itemId) => {
-    setWishlistItems((prevWishlist) =>
-    prevWishlist.includes(itemId)
-      ? prevWishlist.filter((id) => id !== itemId)
-      : [...prevWishlist, itemId]
-    );
-  }
+  };
 
   return (
     <div className="mt-20 overflow-y-auto max-w-screen-[600px]">

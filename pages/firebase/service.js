@@ -9,7 +9,6 @@ import {
   where,
   updateDoc,
   deleteDoc,
-  addedDocRef
 } from "firebase/firestore";
 import { app } from "./init";
 
@@ -83,7 +82,6 @@ export async function addToCart(productId, quantity) {
   }
 }
 
-
 export async function retrieveCartWithProductDetails() {
   try {
     const cartSnapshot = await getDocs(collection(firestore, "cart"));
@@ -119,20 +117,74 @@ export async function retrieveCartWithProductDetails() {
 export const updateCartItem = async (cartItemId, updateData) => {
   const cartItemRef = doc(firestore, "cart", cartItemId);
   await updateDoc(cartItemRef, updateData);
-}
+};
 
 export const deleteCartItem = async (cartItemId) => {
   const cartItemRef = doc(firestore, "cart", cartItemId);
   await deleteDoc(cartItemRef);
-}
+};
 
 export const DeleteAllCart = async () => {
- const collectionRef = collection(firestore, "cart"); 
- const cartSnapshot = await getDocs(collectionRef);
- 
- const deletionPromises = cartSnapshot.docs.map(async (doc) => {
-  await deleteDoc(doc.ref);
-});
+  const collectionRef = collection(firestore, "cart");
+  const cartSnapshot = await getDocs(collectionRef);
 
-  await Promise.all(deletionPromises)
+  const deletionPromises = cartSnapshot.docs.map(async (doc) => {
+    await deleteDoc(doc.ref);
+  });
+
+  await Promise.all(deletionPromises);
+};
+
+export const isProductInWishlist = async (productId) => {
+  const wishlistDoc = doc(firestore, "wishlist", productId);
+  const wishlistSnapshot = await getDoc(wishlistDoc);
+  return wishlistSnapshot.exists();
 }
+
+export const addToWishlist = async (productId, productData) => {
+  try {
+    const wishlistCollectionRef = collection(firestore, 'wishlist');
+    await addDoc(wishlistCollectionRef, {
+      productId,
+      name : productData.name,
+      category: productData.category,
+      image: productData.image,
+      price: productData.price,
+      description: productData.description,
+    })
+    console.log("Produk ditambahkan ke wishlist.");
+  } catch (error) {
+    console.error("Gagal menambahkan produk ke wishlist:", error);
+    throw error;
+  }
+}
+
+export const removeFromWishlist = async (productId) => {
+  try {
+    const wishlistDoc = doc(firestore, "wishlist", productId);
+    await deleteDoc(wishlistDoc);
+
+    console.log("Produk dihapus dari wishlist.");
+    return true
+  } catch (error) {
+    console.error("Gagal menghapus produk dari wishlist:", error);
+    throw error;
+  }
+}
+
+export const retrieveWishlist = async () => {
+  try {
+    const wishlistCollectionRef = collection(firestore, "wishlist");
+    const wishlistSnapshot = await getDocs(wishlistCollectionRef);
+
+    const wishlistData = wishlistSnapshot.docs.map((doc) => ({
+      productId: doc.id,
+      ...doc.data(),
+    }));
+
+    return wishlistData;
+  } catch (error) {
+    console.error("Gagal mengambil data wishlist:", error);
+    throw error;
+  }
+};
