@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { retrieveWishlist } from "../firebase/service";
 import { FaTimes } from "react-icons/fa";
+import Link from "next/link";
 
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);
@@ -46,10 +47,10 @@ const Wishlist = () => {
       alert("Please enter a title for your new wishlist.");
       const updatedWishlist = [
         ...wishlist,
-        {title: newWishlistTitle, products: []},
-      ]
-      setWishlist(updatedWishlist);   
-      setLastAddedProduct(null)
+        { title: newWishlistTitle, products: [] },
+      ];
+      setWishlist(updatedWishlist);
+      setLastAddedProduct(null);
       setShowCreatePopup(false);
       setNewWishlistTitle("");
     }
@@ -63,7 +64,7 @@ const Wishlist = () => {
     const updatedWishlist = [...wishlist];
     const productToMove = updatedWishlist[0].products.find(
       (product) => product.productId === productId
-    )
+    );
     if (productToMove) {
       updatedWishlist[0].products = updatedWishlist[0].products.filter(
         (product) => product.productId !== productId
@@ -71,7 +72,7 @@ const Wishlist = () => {
       updatedWishlist[wishlistIndex].products.push(productToMove);
       setWishlist(updatedWishlist);
     }
-  }
+  };
 
   return (
     <div className="flex flex-col items-center min-h-screen max-w-[600px] mx-auto mt-12">
@@ -81,20 +82,23 @@ const Wishlist = () => {
         ) : (
           <div className="flex items-center">
             <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 md:gap-4">
-              {lastAddedProduct && (
-                <div className="p-4 border border-gray-300 rounded cursor-pointer transition duration-300 hover:shadow-md relative">
-                  <img
-                    src={lastAddedProduct.image}
-                    alt={lastAddedProduct.name}
-                    className="w-full h-32 object-cover mb-4 rounded"
-                  />
-                  <p className="text-md font-bold mb-2">
-                    {lastAddedProduct.name}
-                  </p>
-                  <p className="text-gray-500">Rp. {lastAddedProduct.price}</p>
-                </div>
-              )}
-
+              <Link href={`/wishlist/all`}>
+                {lastAddedProduct && (
+                  <div className="p-4 border border-gray-300 rounded cursor-pointer transition duration-300 hover:shadow-md relative">
+                    <img
+                      src={lastAddedProduct.image}
+                      alt={lastAddedProduct.name}
+                      className="w-full h-32 object-cover mb-4 rounded"
+                    />
+                    <p className="text-md font-bold mb-2">
+                      {lastAddedProduct.name}
+                    </p>
+                    <p className="text-gray-500">
+                      Rp. {lastAddedProduct.price}
+                    </p>
+                  </div>
+                )}
+              </Link>
               <div
                 className="border-dotted border-r-2 h-full cursor-pointer flex items-center justify-center"
                 onClick={() => setShowCreatePopup(true)}>
