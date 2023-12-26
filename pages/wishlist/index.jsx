@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { retrieveWishlist } from "../firebase/service";
-import { FaTimes } from "react-icons/fa";
-import Link from "next/link";
+import { retrieveWishlist, addToWishlist } from "../firebase/service";
+import { FaPlus } from "react-icons/fa";
 
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);
   const [lastAddedProduct, setLastAddedProduct] = useState(null);
-  const [showCreatePopup, setShowCreatePopup] = useState(false);
+  const [showCreateWishlistPopup, setShowCreateWishlistPopup] = useState(false);
   const [newWishlistTitle, setNewWishlistTitle] = useState("");
   const router = useRouter();
 
@@ -42,36 +41,30 @@ const Wishlist = () => {
     router.push("/wishlist/all");
   };
 
-  const handleCreateWishlist = () => {
+  const handleCreateWishlist = async () => {
     if (newWishlistTitle.trim() === "") {
-      alert("Please enter a title for your new wishlist.");
+      return;
+    }
+
+    try {
+      
+      const addedWishlistId = await addToWishlist(newWishlistTitle, []);
+
       const updatedWishlist = [
+        { id: addedWishlistId, title: newWishlistTitle, products: [] },
         ...wishlist,
-        { title: newWishlistTitle, products: [] },
       ];
+
       setWishlist(updatedWishlist);
-      setLastAddedProduct(null);
-      setShowCreatePopup(false);
       setNewWishlistTitle("");
+      setShowCreateWishlistPopup(false);
+    } catch (error) {
+      console.error("Error creating wishlist:", error);
     }
   };
 
-  const handleClosePopup = () => {
-    setShowCreatePopup(false);
-  };
-
-  const moveProductToWishlist = (productId, wishlistIndex) => {
-    const updatedWishlist = [...wishlist];
-    const productToMove = updatedWishlist[0].products.find(
-      (product) => product.productId === productId
-    );
-    if (productToMove) {
-      updatedWishlist[0].products = updatedWishlist[0].products.filter(
-        (product) => product.productId !== productId
-      );
-      updatedWishlist[wishlistIndex].products.push(productToMove);
-      setWishlist(updatedWishlist);
-    }
+  const handleWishlistClick = (wishlistId) => {
+    router.push(`/wishlist/${wishlistId}`);
   };
 
   return (
@@ -80,55 +73,64 @@ const Wishlist = () => {
         {wishlist.length === 0 ? (
           <p>Your wishlist is empty.</p>
         ) : (
-          <div className="flex items-center">
-            <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 md:gap-4">
-              <Link href={`/wishlist/all`}>
-                {lastAddedProduct && (
-                  <div className="p-4 border border-gray-300 rounded cursor-pointer transition duration-300 hover:shadow-md relative">
-                    <img
-                      src={lastAddedProduct.image}
-                      alt={lastAddedProduct.name}
-                      className="w-full h-32 object-cover mb-4 rounded"
-                    />
-                    <p className="text-md font-bold mb-2">
-                      {lastAddedProduct.name}
-                    </p>
-                    <p className="text-gray-500">
-                      Rp. {lastAddedProduct.price}
-                    </p>
-                  </div>
-                )}
-              </Link>
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 md:gap-4">
+            {lastAddedProduct && (
               <div
-                className="border-dotted border-r-2 h-full cursor-pointer flex items-center justify-center"
-                onClick={() => setShowCreatePopup(true)}>
-                <div className="text-3xl font-bold">+</div>
-              </div>
-            </div>
-            {showCreatePopup && (
-              <div className="fixed flex flex-col bottom-0 left-0 right-0 w-full mx-auto transform -translate-y-1/2 bg-white rounded shadow-md">
-                <button
-                  onClick={handleClosePopup}
-                  className="text-lg text-gray-700 mb-4">
-                  <FaTimes />
-                </button>
-                <input
-                  type="text"
-                  placeholder="Enter Wishlist Title"
-                  value={newWishlistTitle}
-                  onChange={(e) => setNewWishlistTitle(e.target.value)}
-                  className="w-full border p-2 mb-4"
+                className="p-4 border border-gray-300 rounded cursor-pointer transition duration-300 hover:shadow-md"
+                onClick={navigateToAllWishlist}
+              >
+                <img
+                  src={lastAddedProduct.image}
+                  alt={lastAddedProduct.name}
+                  className="w-full h-32 object-cover mb-4 rounded"
                 />
-                <button
-                  onClick={handleCreateWishlist}
-                  className="bg-blue-500 text-white px-4 py-2 rounded">
-                  Create Wishlist
-                </button>
+                <p className="text-md font-bold mb-2">
+                  {lastAddedProduct.name}
+                </p>
+                <p className="text-gray-500">Rp. {lastAddedProduct.price}</p>
               </div>
             )}
+            <div className="p-4 border border-dotted border-gray-300 rounded col-span-1">
+              <div className="flex items-center justify-center">
+                <button
+                  className="text-3xl text-gray-500"
+                  onClick={() => setShowCreateWishlistPopup(true)}
+                >
+                  <FaPlus />
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
+      {showCreateWishlistPopup && (
+        <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-4 rounded shadow-md max-w-md w-full">
+            <p className="text-lg font-bold mb-4">Buat Wishlist Baru</p>
+            <input
+              type="text"
+              placeholder="Judul Wishlist"
+              className="w-full border p-2 mb-4"
+              value={newWishlistTitle}
+              onChange={(e) => setNewWishlistTitle(e.target.value)}
+            />
+            <div className="flex justify-end">
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+                onClick={handleCreateWishlist}
+              >
+                Buat
+              </button>
+              <button
+                className="bg-gray-300 text-gray-700 px-4 py-2 rounded"
+                onClick={() => setShowCreateWishlistPopup(false)}
+              >
+                Batal
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
