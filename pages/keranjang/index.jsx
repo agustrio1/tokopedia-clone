@@ -11,6 +11,7 @@ import {
   FaTrash,
   FaHeart,
 } from "react-icons/fa";
+import Header from "../components/cart/Header";
 
 function Cart() {
   const [cartData, setCartData] = useState([]);
@@ -56,6 +57,7 @@ function Cart() {
 
   return (
     <div className="mt-20 overflow-y-auto max-w-screen-[600px]">
+      <Header/>
       <div className="flex justify-between items-center mb-4">
         <p>
           <span className="font-semibold">
@@ -121,7 +123,7 @@ function Cart() {
           </div>
         </div>
       ))}
-      <div className="flex justify-between items-center fixed bottom-0 left-0 right-0 max-w-[500px] bg-white p-4 z-10 mx-auto">
+      <div className="flex justify-between items-center fixed bottom-0 left-0 right-0 max-w-[500px] bg-white p-4 mx-auto">
         <div className="flex items-center">
           <input
             type="checkbox"
