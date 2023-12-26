@@ -5,12 +5,7 @@ import {
   updateItemDecrement,
   handleDeleteAll,
 } from "../utils/cartLogic";
-import {
-  FaPlus,
-  FaMinus,
-  FaTrash,
-  FaHeart,
-} from "react-icons/fa";
+import { FaPlus, FaMinus, FaHeart } from "react-icons/fa";
 import Header from "../components/cart/Header";
 
 function Cart() {
@@ -18,7 +13,6 @@ function Cart() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectAll, setSelectAll] = useState(true);
   const [wishlistItems, setWishlistItems] = useState([]);
-
 
   useEffect(() => {
     fetchCartData(setCartData);
@@ -38,7 +32,11 @@ function Cart() {
       return selectedItems.reduce((acc, itemId) => {
         const selectedItem = cartData.find((item) => item.id === itemId);
         return (
-          acc + calculateSubtotal(selectedItem?.price || 0, selectedItem?.quantity || 0)
+          acc +
+          calculateSubtotal(
+            selectedItem?.price || 0,
+            selectedItem?.quantity || 0
+          )
         );
       }, 0);
     }
@@ -52,21 +50,31 @@ function Cart() {
     console.log("Total:", getTotal());
   };
 
-  const handleToggleWishlist = (itemId) => {
-  };
+  const handleToggleWishlist = (itemId) => {};
 
   return (
-    <div className="mt-20 overflow-y-auto max-w-screen-[600px]">
-      <Header/>
-      <div className="flex justify-between items-center mb-4">
-        <p>
-          <span className="font-semibold">
-            {cartData.length} Produk dipilih
-          </span>
-        </p>
-        <button onClick={() => handleDeleteAll(selectedItems, setCartData)}>
-          <FaTrash />
-        </button>
+    <div className="mt-12 overflow-y-auto max-w-screen-[600px]">
+      <Header />
+      <div
+        className={`flex justify-between items-center mb-4 transition-transform border-b pb-1 ${
+          selectedItems.length > 0
+            ? "transform -translate-y-[-8px] opacity-100 transition-duration-300"
+            : "transform translate-y-0 opacity-0 transition-duration-500"
+        }`}>
+        {selectedItems.length > 0 && (
+          <p>
+            <span className="ml-3 text-[13px] font-semibold">
+              {selectedItems.length} Produk dipilih
+            </span>
+          </p>
+        )}
+        {selectedItems.length > 0 && (
+          <button
+            onClick={() => handleDeleteAll(selectedItems, setCartData)}
+            className="mr-2 text-green-400 text-[12px] font-bold">
+            Hapus
+          </button>
+        )}
       </div>
       {cartData.map((item) => (
         <div
@@ -90,7 +98,7 @@ function Cart() {
               alt={item.productName}
               style={{ maxWidth: "100px" }}
             />
-            <div className="ml-4 w-[33vw]">
+            <div className="ml-4 w-[33vw] lg:w-[24vw]">
               <p className="text-sm md:text-md lg:text-lg">
                 {item.productName}
               </p>
@@ -99,20 +107,37 @@ function Cart() {
               </p>
               <div className="flex items-center mt-4 mx-auto">
                 <div className="mr-auto">
-                  <FaHeart 
-                  onClick={() => handleToggleWishlist(item.id)}
-                  className={wishlistItems.includes(item.id) ? "text-pink-500" : ""}/>
+                  <FaHeart
+                    onClick={() => handleToggleWishlist(item.id)}
+                    className={
+                      wishlistItems.includes(item.id) ? "text-pink-500" : ""
+                    }
+                  />
                 </div>
                 <div className="absolute top-1/2 transform -translate-y-1/2 right-0 mt-8">
                   <div className="flex items-center border border-gray-300 p-1 rounded-md">
                     <button
-                      onClick={() => updateItemDecrement(item, setCartData, selectedItems, setSelectAll)}
+                      onClick={() =>
+                        updateItemDecrement(
+                          item,
+                          setCartData,
+                          selectedItems,
+                          setSelectAll
+                        )
+                      }
                       className="ml-auto mr-2">
                       <FaMinus className="text-green-400 p-1" size={18} />
                     </button>
                     <span className="text-sm">{item.quantity}</span>
                     <button
-                      onClick={() => updateItemIncrement(item, setCartData, selectedItems, setSelectAll)}
+                      onClick={() =>
+                        updateItemIncrement(
+                          item,
+                          setCartData,
+                          selectedItems,
+                          setSelectAll
+                        )
+                      }
                       className="ml-2">
                       <FaPlus className="text-green-400 p-1" size={18} />
                     </button>

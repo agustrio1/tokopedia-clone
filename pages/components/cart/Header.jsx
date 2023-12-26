@@ -9,18 +9,19 @@ function Header() {
   const { isNav, openNav, closeNav } = useHeaderContext();
 
   return (
-    <header className="fixed top-0 left-0 right-0 p-2 max-w-md flex items-center justify-between mx-auto z-10 bg-white border-b border-gray-300">
+    <header className="fixed top-0 left-0 right-0 p-1 max-w-md flex items-center justify-between mx-auto z-10 bg-white border-b border-gray-300">
       <div>
-        <Link href={"/"} className="text-lg text-gray-700">
+        <Link href={"/"} className="text-lg text-gray-700 left-0 right-0 cursor-pointer flex items-center">
           <IoArrowBack size={20} />
+          <p className="ml-2 text-[16px] font-semibold">Keranjang</p>
         </Link>
       </div>
-      <div className="flex space-x-4">
+      <div className="flex space-x-2">
         <Link href={"/wishlist"} className="text-lg text-gray-700">
           <svg
             viewBox="0 0 24 24"
-            width={24}
-            height={24}
+            width={20}
+            height={20}
             fill="var(--color-icon-enabled, #2E3137)"
             style={{
               display: "flex",
@@ -33,7 +34,7 @@ function Header() {
         <span
           onClick={openNav}
           className="p-[9px] bg-white rounded-md cursor-pointer">
-          <RxHamburgerMenu size={24} />
+          <RxHamburgerMenu size={20} />
         </span>
       </div>
       {isNav && <OffCanvasMenu closeNav={closeNav} />}
