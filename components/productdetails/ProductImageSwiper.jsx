@@ -1,9 +1,6 @@
 import React from "react";
-import SwiperCore from "swiper/core";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-
-SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 function ProductImageSwiper({ products }) {
   return (

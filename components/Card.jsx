@@ -55,7 +55,7 @@ const Card = ({productId}) => {
         : data.map((item) => (
             <Link
               key={item.id}
-              href="/products/[id]"
+              href={`/products/${item.id}`}
               as={`/products/${item.id}`}>
               <div key={item.id} className="bg-white p-2 shadow-lg rounded-md">
                 <img
