@@ -1,7 +1,7 @@
 import React from 'react'
-import CarouselComponent from '../components/carousel/Carousel'
-import CategoryMenu from '../components/category/CategoryMenu'
-import Card from '../components/Card'
+import CarouselComponent from '@/components/carousel/Carousel'
+import CategoryMenu from '@/components/category/CategoryMenu'
+import Card from '@/components/Card'
 
 function HomePage() {
   return (

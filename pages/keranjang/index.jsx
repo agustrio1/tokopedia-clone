@@ -6,7 +6,7 @@ import {
   handleDeleteAll,
 } from "../utils/cartLogic";
 import { FaPlus, FaMinus, FaHeart } from "react-icons/fa";
-import Header from "../components/cart/Header";
+import Header from "@/components/cart/Header";
 
 function Cart() {
   const [cartData, setCartData] = useState([]);

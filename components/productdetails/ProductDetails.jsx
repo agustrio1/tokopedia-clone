@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { retriveDataById } from "../../firebase/service";
+import { retriveDataById } from "@/pages/firebase/service";
 import ProductHeader from "./ProductHeader";
 import { useRouter } from "next/router";
 import ProductImageSwiper from "./ProductImageSwiper";
 import ProductButton from "./ProductButton";
 import { FaHeart } from "react-icons/fa";
-import { addToWishlist, removeFromWishlist, isProductInWishlist } from "../../firebase/service";
+import { addToWishlist, removeFromWishlist, isProductInWishlist } from "@/pages/firebase/service";
 
 function ProductDetails({ productId }) {
   const [product, setProduct] = useState(null);

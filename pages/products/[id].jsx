@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
-import ProductDetails from "../components/productdetails/ProductDetails";
-import Navbar from "../components/Navbar";
-import BottomBar from "../components/BottomBar";
+import ProductDetails from "@/components/productdetails/ProductDetails";
+import Navbar from "@/components/Navbar";
+import BottomBar from "@/components/BottomBar";
 
 function UseProductDetails() {
   const router = useRouter();

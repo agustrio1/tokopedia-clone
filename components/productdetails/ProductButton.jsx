@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { BiMessage } from "react-icons/bi";
 import { FaTimes } from "react-icons/fa";
 import { useRouter } from "next/router";
-import { auth, onAuthStateChanged} from "../../firebase/init";
+import { auth, onAuthStateChanged} from "@/pages/firebase/init";
 import { useSpring, animated } from "@react-spring/web";
-import { addToCart } from "../../firebase/service";
+import { addToCart } from "@/pages/firebase/service";
 
 function ProductButton({ productId }) {
   const [showPopup, setShowPopup] = useState(false);
@@ -50,7 +50,7 @@ function ProductButton({ productId }) {
   return (
     <>
       <footer
-        className={`fixed max-w-[600px] bottom-0 left-0 right-0 p-4 flex justify-between items-center mx-auto`}>
+        className={`fixed max-w-[600px] bottom-0 left-0 right-0 p-4 flex justify-between items-center mx-auto bg-white`}>
         <button
           className={`text-md text-gray-700 p-1 border rounded-md box-border mr-3 ml-6`}
           onClick={handleClosePopup}>

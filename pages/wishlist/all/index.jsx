@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { retrieveWishlist } from "../../firebase/service";
 import Link from "next/link";
-import HeaderAll from "@/pages/components/wishlist/HeaderAll";
+import HeaderAll from "@/components/wishlist/HeaderAll";
 
 const AllWishlist = () => {
   const [wishlist, setWishlist] = useState([]);

@@ -1,10 +1,10 @@
 import React from 'react';
 import { MdPerson, MdSettings, MdStore, MdExitToApp } from 'react-icons/md';
 import Link from 'next/link';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '@/pages/context/AuthContext';
 import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
-import { auth } from '../firebase/init';
+import { auth } from '@/pages/firebase/init';
 
 const AuthMenu = () => {
   const { user } = useAuth();

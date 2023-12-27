@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { retrieveWishlist, addToWishlist } from "../firebase/service";
 import { FaPlus } from "react-icons/fa";
-import Header from "../components/wishlist/Header";
+import Header from "@/components/wishlist/Header";
 
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);
