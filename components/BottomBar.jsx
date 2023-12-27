@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
 
 const navs = [
   {
@@ -57,10 +58,13 @@ const BottomBar = () => {
             className="flex flex-col items-center"
             onClick={() => handleIconsClick(item.icon)}
           >
-            <img
+            <Image
               src={activeIcon === item.icon ? item.activeImage : item.image}
               alt={item.text}
-              className="h-6 w-6 object-cover"
+              width={24}
+              height={24}
+              priority={true}
+              className="object-cover"
             />
             <p className={`text-xs sm:text-sm ${activeIcon === item.icon ? 'text-green-500' : 'text-gray-500'}`}>{item.text}</p>
           </Link>

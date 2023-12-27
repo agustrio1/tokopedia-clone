@@ -5,7 +5,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { BiCart } from "react-icons/bi";
 import OffCanvasMenu from "@/components/offCanvasMenu";
-import { useHeaderContext } from "@/pages/context/HeaderContext";
+import { useHeaderContext } from "@/context/HeaderContext";
 import Link from "next/link";
 
 function Header() {

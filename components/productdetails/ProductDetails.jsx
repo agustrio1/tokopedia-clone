@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { retriveDataById } from "@/pages/firebase/service";
+import { retriveDataById } from "@/firebase/service";
 import ProductHeader from "./ProductHeader";
 import { useRouter } from "next/router";
 import ProductImageSwiper from "./ProductImageSwiper";
 import ProductButton from "./ProductButton";
 import { FaHeart } from "react-icons/fa";
-import { addToWishlist, removeFromWishlist, isProductInWishlist } from "@/pages/firebase/service";
+import {
+  addToWishlist,
+  removeFromWishlist,
+  isProductInWishlist,
+} from "@/firebase/service";
 
 function ProductDetails({ productId }) {
   const [product, setProduct] = useState(null);
@@ -25,7 +29,6 @@ function ProductDetails({ productId }) {
     };
 
     fetchProduct();
-
   }, [productId]);
 
   useEffect(() => {
@@ -43,13 +46,13 @@ function ProductDetails({ productId }) {
     try {
       if (isInWishlist) {
         removeFromWishlist(productId)
-        .then(() => {
-          console.log("Produk dihapus dari wishlist.");
-          setIsInWishlist(false);
-        })
-        .catch((error) => {
-          console.error("Error menghapus produk dari wishlist:", error);
-        });
+          .then(() => {
+            console.log("Produk dihapus dari wishlist.");
+            setIsInWishlist(false);
+          })
+          .catch((error) => {
+            console.error("Error menghapus produk dari wishlist:", error);
+          });
       } else {
         await addToWishlist(productId, product);
       }
@@ -57,7 +60,7 @@ function ProductDetails({ productId }) {
     } catch (error) {
       console.error("Error mengelola wishlist:", error);
     }
-  }
+  };
 
   if (!product) {
     return <div>Loading...</div>;
@@ -66,32 +69,33 @@ function ProductDetails({ productId }) {
   const products = [product, product, product];
 
   return (
-    <div className="min-h-screen max-w-[600px] mx-auto">
+    <div className="min-h-screen max-w-[600px] mx-auto sm:w-full">
       <ProductHeader />
-      <div className="max-w-[500px] mt-12 mx-auto">
-        <ProductImageSwiper products={products}/>
+      <div className="max-w-[500px] mt-12 mx-auto sm:w-full">
+        <ProductImageSwiper products={products} />
       </div>
       <div className={`max-w-[600px] mt-auto`}>
         <div
           className={` p-4 max-w-sm mx-auto sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl`}>
           <p className={`text-md md:text-xl font-bold mb-2`}>{product.name}</p>
           <p className={`text-gray-500 mb-2`}>{product.category}</p>
-          <p className={`text-black font-bold mb-2 text-lg`}>
-          Rp.{" "}
-          <span className="flex items-center">
-            {new Intl.NumberFormat("id-ID").format(product.price)}
-            <FaHeart
-              className={`ml-2 cursor-pointer ${
-                isInWishlist ? "text-red-500" : "text-gray-500"
-              }`}
-              onClick={handleToggleWishlist}
-            />
-          </span>
-        </p>
+          <p className={`flex text-black font-bold mb-2 text-lg`}>
+            <span className="mr-2">Rp.</span>
+            <span className="flex items-center">
+              {new Intl.NumberFormat("id-ID").format(product.price)}
+              <FaHeart
+                className={`ml-32 cursor-pointer ${
+                  isInWishlist ? "text-red-500" : "text-gray-500"
+                }`}
+                onClick={handleToggleWishlist}
+              />
+            </span>
+          </p>
+
           <p className={`text-gray-700 mb-4`}>{product.description}</p>
         </div>
       </div>
-      <ProductButton productId={productId}/>
+      <ProductButton productId={productId} />
     </div>
   );
 }

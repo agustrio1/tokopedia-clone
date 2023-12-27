@@ -1,4 +1,4 @@
-import { retriveData, retriveDataById } from "@/pages/firebase/service";
+import { retriveData, retriveDataById } from "@/firebase/service";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
@@ -26,5 +26,3 @@ export async function GET(request) {
 
   return NextResponse.json({ status: 200, message: "ok", data });
 }
-
-

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { BiMessage } from "react-icons/bi";
 import { FaTimes } from "react-icons/fa";
 import { useRouter } from "next/router";
-import { auth, onAuthStateChanged} from "@/pages/firebase/init";
+import { auth, onAuthStateChanged } from "@/firebase/init";
 import { useSpring, animated } from "@react-spring/web";
-import { addToCart } from "@/pages/firebase/service";
+import { addToCart } from "@/firebase/service";
 
 function ProductButton({ productId }) {
   const [showPopup, setShowPopup] = useState(false);

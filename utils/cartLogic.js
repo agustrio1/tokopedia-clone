@@ -58,7 +58,6 @@ export const updateItemDecrement = async (
       fetchCartData(setCartData);
     } else if (item.quantity === 1) {
       handleRemoveItem(item.id, setCartData);
-      
     }
   } catch (error) {
     console.error("Error updating cart item:", error);

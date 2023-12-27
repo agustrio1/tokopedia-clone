@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Card = ({productId}) => {
   const [data, setData] = useState([]);
@@ -58,11 +59,13 @@ const Card = ({productId}) => {
               href={`/products/${item.id}`}
               as={`/products/${item.id}`}>
               <div key={item.id} className="bg-white p-2 shadow-lg rounded-md">
-                <img
+                <Image
                   src={item.image}
                   alt={item.name}
                   loading="lazy"
-                  className="w-40 h-40 object-cover mb-4 items-center mx-auto"
+                  width={160}
+                  height={160}
+                  className="object-cover mb-4 items-center mx-auto"
                 />
                 <p className="text-sm font-bold mb-2 text-center overflow-hidden">
                   {item.name.length > 30 ? (

@@ -1,6 +1,7 @@
 import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import Image from "next/image";
 
 const CarouselComponent = () => {
   const images = [
@@ -11,17 +12,23 @@ const CarouselComponent = () => {
 
   return (
     <div className="max-w-screen-md mx-auto mt-8">
-      <Carousel 
-        autoPlay 
-        infiniteLoop 
-        showArrows={false} 
+      <Carousel
+        autoPlay
+        infiniteLoop
+        showArrows={false}
         showThumbs={false}
         showStatus={false}
-        interval={5000}
-      >
+        interval={5000}>
         {images.map((image, index) => (
           <div key={index}>
-            <img src={image} alt={`image${index + 1}`}  className="w-[400px] rounded-lg"/>
+            <Image
+              src={image}
+              alt={`image${index + 1}`}
+              width={400}
+              height={300}
+              priority={true}
+              className="rounded-lg"
+            />
           </div>
         ))}
       </Carousel>

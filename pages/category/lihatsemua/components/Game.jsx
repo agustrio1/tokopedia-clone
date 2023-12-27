@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const imageSources = [
   "https://images.tokopedia.net/img/MIPuRC/2023/6/20/3c3902b5-b6d3-44a0-a60a-7dc070cf2a56.png?ect=4g",
@@ -25,12 +26,20 @@ const textSource = [
 ];
 
 const Game = () => {
-  return(
+  return (
     <div className="grid grid-cols-4 gap-4">
       {imageSources.map((src, index) => (
         <div key={index}>
-          <img src={src} alt={`Featured Image ${index + 1}`}  className="w-8 h-8 mx-3"/>
-          <p className="w-16 text-center text-[11px] mt-2">{textSource[index]}</p>
+          <Image
+            src={src}
+            alt={`Featured Image ${index + 1}`}
+            width={32}
+            height={32}
+            className="mx-3"
+          />
+          <p className="w-16 text-center text-[11px] mt-2">
+            {textSource[index]}
+          </p>
         </div>
       ))}
     </div>

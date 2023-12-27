@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { retrieveWishlist } from "../../firebase/service";
+import { retrieveWishlist } from "../../../firebase/service";
 import Link from "next/link";
 import HeaderAll from "@/components/wishlist/HeaderAll";
+import Image from "next/image";
 
 const AllWishlist = () => {
   const [wishlist, setWishlist] = useState([]);
@@ -21,7 +22,7 @@ const AllWishlist = () => {
 
   return (
     <div className="min-h-screen max-w-[480px] mx-auto mt-4">
-      <HeaderAll/>
+      <HeaderAll />
       <div className="mt-12">
         <h1 className="text-md font-bold mb-4">All Wishlist</h1>
         {wishlist.length === 0 ? (
@@ -32,15 +33,17 @@ const AllWishlist = () => {
               <Link
                 href={"/products/[id]"}
                 as={`/products/${product.productId}`}
-                key={product.productId}
-               >
+                key={product.productId}>
                 <div
                   key={product.productId}
                   className="p-4 border border-gray-300 rounded cursor-pointer transition duration-300 hover:shadow-md">
-                  <img
+                  <Image
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-24 object-cover mb-4 rounded"
+                    width={180}
+                    height={180}
+                    priority={true}
+                    className=" object-cover mb-4 rounded"
                   />
                   <p className="text-md font-bold mb-2">{product.name}</p>
                   <p className="text-gray-500 mb-2">Rp. {product.price}</p>
@@ -49,7 +52,7 @@ const AllWishlist = () => {
             ))}
           </div>
         )}
-      </div> 
+      </div>
     </div>
   );
 };

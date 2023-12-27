@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import { AuthProvider } from "@/pages/context/AuthContext";
+import { AuthProvider } from "@/context/AuthContext";
 import BottomBar from "../components/BottomBar";
 import Navbar from "../components/Navbar";
-import { HeaderProvider } from "@/pages/context/HeaderContext";
+import { HeaderProvider } from "@/context/HeaderContext";
 
 export const Layout = ({ children }) => {
   const router = useRouter();

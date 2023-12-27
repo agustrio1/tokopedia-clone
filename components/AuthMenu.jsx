@@ -1,10 +1,10 @@
-import React from 'react';
-import { MdPerson, MdSettings, MdStore, MdExitToApp } from 'react-icons/md';
-import Link from 'next/link';
-import { useAuth } from '@/pages/context/AuthContext';
-import { signOut } from 'firebase/auth';
-import { useRouter } from 'next/router';
-import { auth } from '@/pages/firebase/init';
+import React from "react";
+import { MdPerson, MdSettings, MdStore, MdExitToApp } from "react-icons/md";
+import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
+import { signOut } from "firebase/auth";
+import { useRouter } from "next/router";
+import { auth } from "@/firebase/init";
 
 const AuthMenu = () => {
   const { user } = useAuth();
@@ -13,9 +13,9 @@ const AuthMenu = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      router.push('/login');
+      router.push("/login");
     } catch (error) {
-      console.error('Error logging out:', error);
+      console.error("Error logging out:", error);
     }
   };
 
@@ -36,10 +36,14 @@ const AuthMenu = () => {
         </div>
       ) : (
         <>
-          <Link href={'/login'} className="bg-green-600 text-white p-2 mx-auto text-center w-full rounded-md cursor-pointer">
+          <Link
+            href={"/login"}
+            className="bg-green-600 text-white p-2 mx-auto text-center w-full rounded-md cursor-pointer">
             Masuk
           </Link>
-          <Link href={'/register'} className="bg-green-600 text-white p-2 mx-auto text-center w-full rounded-md cursor-pointer mt-2">
+          <Link
+            href={"/register"}
+            className="bg-green-600 text-white p-2 mx-auto text-center w-full rounded-md cursor-pointer mt-2">
             Daftar
           </Link>
         </>
@@ -50,7 +54,9 @@ const AuthMenu = () => {
             <MdStore size={24} />
             <p className="ml-2">Buka Toko</p>
           </div>
-          <div className="right-8 flex items-end cursor-pointer ml-auto border border-gray-400 rounded-md p-2 w-full" onClick={handleLogout}>
+          <div
+            className="right-8 flex items-end cursor-pointer ml-auto border border-gray-400 rounded-md p-2 w-full"
+            onClick={handleLogout}>
             <MdExitToApp size={24} />
             <p className="ml-2">Keluar</p>
           </div>

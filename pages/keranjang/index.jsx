@@ -4,9 +4,10 @@ import {
   updateItemIncrement,
   updateItemDecrement,
   handleDeleteAll,
-} from "../utils/cartLogic";
+} from "../../utils/cartLogic";
 import { FaPlus, FaMinus, FaHeart } from "react-icons/fa";
 import Header from "@/components/cart/Header";
+import Image from "next/image";
 
 function Cart() {
   const [cartData, setCartData] = useState([]);
@@ -55,7 +56,10 @@ function Cart() {
   return (
     <div className="mt-12 overflow-y-auto max-w-screen-[600px]">
       <Header />
-      <div className={`flex justify-between items-center mb-4 ${selectedItems.length > 0 ? 'border-b pb-2' : ''}`}>
+      <div
+        className={`flex justify-between items-center mb-4 ${
+          selectedItems.length > 0 ? "border-b pb-2" : ""
+        }`}>
         {selectedItems.length > 0 ? (
           <p className="transition-active">
             <span className="ml-3 text-[13px] font-semibold">
@@ -100,10 +104,12 @@ function Cart() {
               }}
               className="ml-2 mr-2"
             />
-            <img
+            <Image
               src={item.image}
               alt={item.productName}
-              style={{ maxWidth: "100px" }}
+              width={100}
+              height={100}
+              priority={true}
             />
             <div className="ml-4 w-[33vw] lg:w-[24vw]">
               <p className="text-sm md:text-md lg:text-lg">

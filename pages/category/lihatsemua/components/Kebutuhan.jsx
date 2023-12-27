@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const imageSources = [
   "https://images.tokopedia.net/img/MIPuRC/2023/6/20/8a9fca14-7192-4a1e-b87a-214c22638352.png?ect=4g",
@@ -8,22 +9,30 @@ const imageSources = [
 ];
 
 const textSource = [
-    'Kesehatan',
-    'Makanan & Minuman',
-    'Ibu & Bayi',
-    'Perawatan Hewan'
-]
+  "Kesehatan",
+  "Makanan & Minuman",
+  "Ibu & Bayi",
+  "Perawatan Hewan",
+];
 const Kebutuhan = () => {
   return (
     <div className="grid grid-cols-4 gap-4">
       {imageSources.map((src, index) => (
         <div key={index}>
-          <img src={src} alt={`Featured Image ${index + 1}`}  className="w-8 h-8 mx-3"/>
-          <p className="w-16 text-center text-[11px] mt-2">{textSource[index]}</p>
+          <Image
+            src={src}
+            alt={`Featured Image ${index + 1}`}
+            width={32}
+            height={32}
+            className="mx-3"
+          />
+          <p className="w-16 text-center text-[11px] mt-2">
+            {textSource[index]}
+          </p>
         </div>
       ))}
     </div>
-  )
+  );
 };
 
 export default Kebutuhan;

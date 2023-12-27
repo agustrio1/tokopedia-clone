@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { retrieveWishlist, addToWishlist } from "../firebase/service";
+import { retrieveWishlist, addToWishlist } from "../../firebase/service";
 import { FaPlus } from "react-icons/fa";
 import Header from "@/components/wishlist/Header";
+import Image from "next/image";
 
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);
@@ -64,14 +65,13 @@ const Wishlist = () => {
     }
   };
 
-
   const handleWishlistClick = (wishlistId) => {
     router.push(`/wishlist/${wishlistId}`);
   };
 
   return (
     <div className="flex flex-col items-center min-h-screen max-w-[600px] mx-auto mt-8">
-      <Header/>
+      <Header />
       <div className="mt-8">
         {wishlist.length === 0 ? (
           <p>Your wishlist is empty.</p>
@@ -80,12 +80,14 @@ const Wishlist = () => {
             {lastAddedProduct && (
               <div
                 className="p-4 border border-gray-300 rounded cursor-pointer transition duration-300 hover:shadow-md"
-                onClick={navigateToAllWishlist}
-              >
-                <img
+                onClick={navigateToAllWishlist}>
+                <Image
                   src={lastAddedProduct.image}
                   alt={lastAddedProduct.name}
-                  className="w-full h-32 object-cover mb-4 rounded"
+                  width={180}
+                  height={180}
+                  priority={true}
+                  className="object-cover mb-4 rounded"
                 />
                 <p className="text-md font-bold mb-2">
                   {lastAddedProduct.name}
@@ -97,8 +99,7 @@ const Wishlist = () => {
               <div className="flex items-center justify-center">
                 <button
                   className="text-3xl text-gray-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                  onClick={() => setShowCreateWishlistPopup(true)}
-                >
+                  onClick={() => setShowCreateWishlistPopup(true)}>
                   <FaPlus />
                 </button>
               </div>
@@ -120,14 +121,12 @@ const Wishlist = () => {
             <div className="flex justify-end">
               <button
                 className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
-                onClick={handleCreateWishlist}
-              >
+                onClick={handleCreateWishlist}>
                 Buat
               </button>
               <button
                 className="bg-gray-300 text-gray-700 px-4 py-2 rounded"
-                onClick={() => setShowCreateWishlistPopup(false)}
-              >
+                onClick={() => setShowCreateWishlistPopup(false)}>
                 Batal
               </button>
             </div>

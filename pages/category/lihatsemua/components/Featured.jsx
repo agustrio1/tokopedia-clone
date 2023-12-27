@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const imageSources = [
   "https://images.tokopedia.net/img/MIPuRC/2023/6/20/d85c9b44-193a-4b60-ac0b-34d8cf668abe.png?ect=4g",
@@ -15,26 +16,34 @@ const imageSources = [
 ];
 
 const textSource = [
-    'Handphone & Tablet',
-    'Gaming',
-    'Elektronik',
-    'Promo',
-    'Gopay Pinjam',
-    'Pulsa',
-    'Tokopedia Card',
-    'Tokopedia Gift Card',
-    'Uang Elektronik',
-    'Dilayani Tokopedia',
-    'Tokopedia Sehat',
-]
+  "Handphone & Tablet",
+  "Gaming",
+  "Elektronik",
+  "Promo",
+  "Gopay Pinjam",
+  "Pulsa",
+  "Tokopedia Card",
+  "Tokopedia Gift Card",
+  "Uang Elektronik",
+  "Dilayani Tokopedia",
+  "Tokopedia Sehat",
+];
 
 const Featured = () => {
   return (
     <div className="grid grid-cols-4 gap-4">
       {imageSources.map((src, index) => (
         <div key={index}>
-          <img src={src} alt={`Featured Image ${index + 1}`}  className="w-8 h-8 mx-3"/>
-          <p className="w-16 text-center text-[11px] mt-2">{textSource[index]}</p>
+          <Image
+            src={src}
+            alt={`Featured Image ${index + 1}`}
+            width={32}
+            height={32}
+            className="mx-3"
+          />
+          <p className="w-16 text-center text-[11px] mt-2">
+            {textSource[index]}
+          </p>
         </div>
       ))}
     </div>

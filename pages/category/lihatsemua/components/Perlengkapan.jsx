@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const imageSources = [
   "https://images.tokopedia.net/img/MIPuRC/2023/6/20/a0503795-0cb0-493e-afb3-81fab2a86d18.png?ect=4g",
@@ -21,10 +22,12 @@ const Perlengkapan = () => {
     <div className="grid grid-cols-4 gap-4">
       {imageSources.map((src, index) => (
         <div key={index}>
-          <img
+          <Image
             src={src}
             alt={`Featured Image ${index + 1}`}
-            className="w-8 h-8 mx-3"
+            width={32}
+            height={32}
+            className="mx-3"
           />
           <p className="w-16 text-center text-[11px] mt-2">
             {textSource[index]}

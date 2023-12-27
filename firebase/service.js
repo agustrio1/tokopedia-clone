@@ -139,25 +139,25 @@ export const isProductInWishlist = async (productId) => {
   const wishlistDoc = doc(firestore, "wishlist", productId);
   const wishlistSnapshot = await getDoc(wishlistDoc);
   return wishlistSnapshot.exists();
-}
+};
 
 export const addToWishlist = async (productId, productData) => {
   try {
-    const wishlistCollectionRef = collection(firestore, 'wishlist');
+    const wishlistCollectionRef = collection(firestore, "wishlist");
     await addDoc(wishlistCollectionRef, {
       productId,
-      name : productData.name,
+      name: productData.name,
       category: productData.category,
       image: productData.image,
       price: productData.price,
       description: productData.description,
-    })
+    });
     console.log("Produk ditambahkan ke wishlist.");
   } catch (error) {
     console.error("Gagal menambahkan produk ke wishlist:", error);
     throw error;
   }
-}
+};
 
 export const removeFromWishlist = async (productId) => {
   try {
@@ -165,12 +165,12 @@ export const removeFromWishlist = async (productId) => {
     await deleteDoc(wishlistDoc);
 
     console.log("Produk dihapus dari wishlist.");
-    return true
+    return true;
   } catch (error) {
     console.error("Gagal menghapus produk dari wishlist:", error);
     throw error;
   }
-}
+};
 
 export const retrieveWishlist = async () => {
   try {

@@ -4,7 +4,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { BiCart } from "react-icons/bi";
 import OffCanvasMenu from "@/components/offCanvasMenu.jsx";
-import { useHeaderContext } from "@/pages/context/HeaderContext";
+import { useHeaderContext } from "@/context/HeaderContext";
 import Link from "next/link";
 
 function ProductHeader() {

@@ -2,7 +2,7 @@ import React from "react";
 import { IoArrowBack } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
 import OffCanvasMenu from "../offCanvasMenu";
-import { useHeaderContext } from "@/pages/context/HeaderContext";
+import { useHeaderContext } from "@/context/HeaderContext";
 import Link from "next/link";
 
 function Header() {

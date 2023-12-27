@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { IoArrowBack } from "react-icons/io5";
-import { useRouter } from "next/router"; 
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../firebase/init";
+import { useRouter } from "next/router";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
+import { auth } from "../../firebase/init";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -27,13 +32,17 @@ const Login = (props) => {
     e.preventDefault();
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
-      console.log('Signed in with email/password:', user);
+      console.log("Signed in with email/password:", user);
 
-      router.push('/'); 
+      router.push("/");
     } catch (error) {
-      console.error('Error logging in with email/password:', error);
+      console.error("Error logging in with email/password:", error);
     }
   };
 
@@ -43,12 +52,12 @@ const Login = (props) => {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      console.log('Signed in with Google:', user);
+      console.log("Signed in with Google:", user);
 
       // Redirect ke halaman setelah login berhasil
-      router.push('/');  // Ganti dengan halaman yang diinginkan setelah login
+      router.push("/"); // Ganti dengan halaman yang diinginkan setelah login
     } catch (error) {
-      console.error('Error signing in with Google:', error);
+      console.error("Error signing in with Google:", error);
       // Tangani kesalahan login dengan Google di sini
     }
   };
@@ -59,13 +68,17 @@ const Login = (props) => {
         <Link href={"/"}>
           <IoArrowBack size={24} className="top-0 left-0 z-10" />
         </Link>
-        <Link href={"/register"} className="flex flex-row items-end text-green-500">
+        <Link
+          href={"/register"}
+          className="flex flex-row items-end text-green-500">
           Daftar
         </Link>
       </div>
       <form className="w-full md:w-1/2 mx-auto mt-4" method="POST">
         <div className="mb-6">
-          <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
+          <label
+            htmlFor="email"
+            className="block text-gray-700 text-sm font-bold mb-2">
             Email
           </label>
           <input
@@ -79,7 +92,9 @@ const Login = (props) => {
         </div>
 
         <div className="mb-6">
-          <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
+          <label
+            htmlFor="password"
+            className="block text-gray-700 text-sm font-bold mb-2">
             Password
           </label>
           <input
@@ -97,19 +112,17 @@ const Login = (props) => {
           onClick={handleLogin}
           disabled={!isEmailValid(email) || password.length === 0}
           className={`${
-            (isEmailValid(email) && password.length > 0)
+            isEmailValid(email) && password.length > 0
               ? "bg-green-500"
               : "bg-gray-300 cursor-not-allowed"
-          } text-white w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue`}
-        >
+          } text-white w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue`}>
           Masuk
         </button>
 
         <button
           type="button"
           onClick={handleGoogleSignIn}
-          className="bg-red-500 text-white w-full font-bold py-2 px-4 rounded mt-2 focus:outline-none focus:shadow-outline-blue"
-        >
+          className="bg-red-500 text-white w-full font-bold py-2 px-4 rounded mt-2 focus:outline-none focus:shadow-outline-blue">
           Masuk dengan Google
         </button>
       </form>
