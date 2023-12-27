@@ -4,7 +4,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineMail } from "react-icons/ai";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { BiCart } from "react-icons/bi";
-import OffCanvasMenu from "../offCanvasMenu";
+import OffCanvasMenu from "@/pages/components/offCanvasMenu";
 import { useHeaderContext } from "@/pages/context/HeaderContext";
 import Link from "next/link";
 
