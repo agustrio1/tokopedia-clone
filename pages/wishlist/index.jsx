@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { retrieveWishlist, addToWishlist } from "../firebase/service";
 import { FaPlus } from "react-icons/fa";
+import Header from "../components/wishlist/Header";
 
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);
   const [lastAddedProduct, setLastAddedProduct] = useState(null);
   const [showCreateWishlistPopup, setShowCreateWishlistPopup] = useState(false);
+  const [creatingWishlist, setCreatingWishlist] = useState(false);
   const [newWishlistTitle, setNewWishlistTitle] = useState("");
   const router = useRouter();
 
@@ -47,7 +49,6 @@ const Wishlist = () => {
     }
 
     try {
-      
       const addedWishlistId = await addToWishlist(newWishlistTitle, []);
 
       const updatedWishlist = [
@@ -56,19 +57,21 @@ const Wishlist = () => {
       ];
 
       setWishlist(updatedWishlist);
+      setCreatingWishlist(false);
       setNewWishlistTitle("");
-      setShowCreateWishlistPopup(false);
     } catch (error) {
       console.error("Error creating wishlist:", error);
     }
   };
+
 
   const handleWishlistClick = (wishlistId) => {
     router.push(`/wishlist/${wishlistId}`);
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen max-w-[600px] mx-auto mt-12">
+    <div className="flex flex-col items-center min-h-screen max-w-[600px] mx-auto mt-8">
+      <Header/>
       <div className="mt-8">
         {wishlist.length === 0 ? (
           <p>Your wishlist is empty.</p>
@@ -90,10 +93,10 @@ const Wishlist = () => {
                 <p className="text-gray-500">Rp. {lastAddedProduct.price}</p>
               </div>
             )}
-            <div className="p-4 border border-dotted border-gray-300 rounded col-span-1">
+            <div className="p-4 border border-dotted border-gray-300 rounded col-span-1 relative">
               <div className="flex items-center justify-center">
                 <button
-                  className="text-3xl text-gray-500"
+                  className="text-3xl text-gray-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                   onClick={() => setShowCreateWishlistPopup(true)}
                 >
                   <FaPlus />

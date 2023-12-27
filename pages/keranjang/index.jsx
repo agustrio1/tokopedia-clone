@@ -161,14 +161,18 @@ function Cart() {
             }}
             className="ml-2 mr-4"
           />
-          <p className="text-lg">
-            {selectAll ? "Total" : "Subtotal"}: Rp.{" "}
-            {new Intl.NumberFormat("id-ID").format(getTotal())}
-          </p>
+          <div>
+            <p className="text-sm ml-[22vw]">
+              {selectAll ? "Total" : "Subtotal"}:
+            </p>
+            <p className="text-sm ml-[19vw]">
+              Rp. {new Intl.NumberFormat("id-ID").format(getTotal())}
+            </p>
+          </div>
         </div>
         <div className="flex items-center">
           <button
-            className="bg-green-500 text-white px-4 py-2 rounded ml-4"
+            className="bg-green-500 text-white px-8 py-2 rounded ml-4"
             onClick={handleBuyCart}>
             Beli
           </button>
