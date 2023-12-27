@@ -49,7 +49,7 @@ const AllWishlist = () => {
             ))}
           </div>
         )}
-      </div>
+      </div> 
     </div>
   );
 };

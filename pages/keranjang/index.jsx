@@ -55,23 +55,30 @@ function Cart() {
   return (
     <div className="mt-12 overflow-y-auto max-w-screen-[600px]">
       <Header />
-      <div
-        className={`flex justify-between items-center mb-4 transition-transform border-b pb-1 ${
-          selectedItems.length > 0
-            ? "transform -translate-y-[-8px] opacity-100 transition-duration-300"
-            : "transform translate-y-0 opacity-0 transition-duration-500"
-        }`}>
-        {selectedItems.length > 0 && (
-          <p>
+      <div className={`flex justify-between items-center mb-4 ${selectedItems.length > 0 ? 'border-b pb-2' : ''}`}>
+        {selectedItems.length > 0 ? (
+          <p className="transition-active">
+            <span className="ml-3 text-[13px] font-semibold">
+              {selectedItems.length} Produk dipilih
+            </span>
+          </p>
+        ) : (
+          <p className="transition-inactive">
             <span className="ml-3 text-[13px] font-semibold">
               {selectedItems.length} Produk dipilih
             </span>
           </p>
         )}
-        {selectedItems.length > 0 && (
+        {selectedItems.length > 0 ? (
           <button
             onClick={() => handleDeleteAll(selectedItems, setCartData)}
-            className="mr-2 text-green-400 text-[12px] font-bold">
+            className="mr-2 text-green-400 text-[12px] font-bold transition-active">
+            Hapus
+          </button>
+        ) : (
+          <button
+            onClick={() => handleDeleteAll(selectedItems, setCartData)}
+            className="mr-2 text-green-400 text-[12px] font-bold transition-inactive">
             Hapus
           </button>
         )}

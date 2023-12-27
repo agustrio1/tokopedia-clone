@@ -1,7 +1,6 @@
-'use strict';
-import React from 'react';
-import { MdClose } from 'react-icons/md';
-import AuthMenu from './AuthMenu';
+import React from "react";
+import { MdClose } from "react-icons/md";
+import AuthMenu from "./AuthMenu";
 
 const OffCanvasMenu = ({ closeNav }) => {
   return (
@@ -9,8 +8,7 @@ const OffCanvasMenu = ({ closeNav }) => {
       <div className="absolute top-0 left-0 w-full bg-white rounded-md overflow-x-8 flex flex-col items-start">
         <span
           onClick={closeNav}
-          className="bg-white rounded-md p-4 left-0 right-0 cursor-pointer flex items-center border-b border-gray-300 w-full"
-        >
+          className="bg-white rounded-md p-4 left-0 right-0 cursor-pointer flex items-center border-b border-gray-300 w-full">
           <MdClose size={24} className="top-0 left-0 z-10" />
           <p className="ml-2">Menu utama</p>
         </span>
