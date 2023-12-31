@@ -16,4 +16,10 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-export { auth, app, onAuthStateChanged, db, firestore };
+let currentUser = null;
+
+onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+});
+
+export { auth, app, db, onAuthStateChanged, currentUser };

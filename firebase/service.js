@@ -10,7 +10,7 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { app } from "./init";
+import { app, currentUser, db } from "./init";
 
 const firestore = getFirestore(app);
 
@@ -34,20 +34,27 @@ export async function retriveDataById(collectionName, id) {
 
 export async function addToCart(productId, quantity) {
   try {
-    const productData = await retriveDataById("products", productId);
-    const cartCollectionRef = collection(firestore, "cart");
+    if (!currentUser) {
+      throw new Error("Pengguna belum masuk");
+      return;
+    }
 
-    // cari apakah produk sudah ada
-    const exitingCartItemQuery = query(
+    const userId = currentUser.uid;
+    const productData = await retriveDataById("products", productId);
+    const cartCollectionRef = collection(db, "cart");
+
+    // Cari apakah produk sudah ada
+    const existingCartItemQuery = query(
       cartCollectionRef,
+      where("userId", "==", userId),
       where("productId", "==", productId)
     );
 
-    const exitingCartSnapshot = await getDocs(exitingCartItemQuery);
+    const existingCartSnapshot = await getDocs(existingCartItemQuery);
 
-    // jika ada, update quantity
-    if (!exitingCartSnapshot.empty) {
-      const existingCartItem = exitingCartSnapshot.docs[0];
+    // Jika ada, perbarui kuantitas
+    if (!existingCartSnapshot.empty) {
+      const existingCartItem = existingCartSnapshot.docs[0];
       const updateQuantity = existingCartItem.data().quantity + quantity;
       const updateSubTotal = productData.price * updateQuantity;
 
@@ -59,8 +66,9 @@ export async function addToCart(productId, quantity) {
 
       return existingCartItem.id;
     } else {
-      // Jika produk belum ada di keranjang, tambahkan data baru
+      // Jika produk belum ada di keranjang, tambahkan data baru dengan userId
       const addedDocRef = await addDoc(cartCollectionRef, {
+        userId,
         productId,
         quantity,
         image: productData.image,
@@ -69,10 +77,25 @@ export async function addToCart(productId, quantity) {
         subTotal: productData.price * quantity,
       });
 
+      //simpan data ke localstorage
+      const cartData = JSON.parse(localStorage.getItem("cartData")) || [];
+      const newItems = {
+        id: addedDocRef.id,
+        userId,
+        productId,
+        quantity,
+        image: productData.image,
+        name: productData.name,
+        price: productData.price,
+        subTotal: productData.price * quantity,
+      };
+
       console.log(
         "Produk berhasil ditambahkan ke keranjang dengan ID:",
         addedDocRef.id
       );
+      cartData.push(newItems);
+      localStorage.setItem("cartData", JSON.stringify(cartData));
 
       return addedDocRef.id;
     }
@@ -84,7 +107,15 @@ export async function addToCart(productId, quantity) {
 
 export async function retrieveCartWithProductDetails() {
   try {
-    const cartSnapshot = await getDocs(collection(firestore, "cart"));
+    const userId = currentUser?.uid; // Dapatkan ID pengguna saat ini
+    if (!userId) {
+      return []; // Kembalikan array kosong jika tidak ada pengguna yang masuk
+    }
+
+    const cartSnapshot = await getDocs(
+      query(collection(firestore, "cart"), where("userId", "==", userId))
+    );
+
     const cartData = [];
 
     for (const doc of cartSnapshot.docs) {

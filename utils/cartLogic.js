@@ -8,6 +8,9 @@ import {
 export const fetchCartData = async (setCartData) => {
   try {
     const data = await retrieveCartWithProductDetails();
+
+    // Simpan data keranjang ke localStorage
+    localStorage.setItem("cart", JSON.stringify(data));
     setCartData(data);
   } catch (error) {
     console.error("Error fetching cart data:", error);
