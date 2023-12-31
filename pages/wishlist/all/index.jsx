@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { retrieveWishlist } from "../../../firebase/service";
+import { retrieveWishlist } from "../../../firebase/wishlistService";
 import Link from "next/link";
 import HeaderAll from "@/components/wishlist/HeaderAll";
 import Image from "next/image";

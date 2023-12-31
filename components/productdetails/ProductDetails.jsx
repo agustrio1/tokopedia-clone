@@ -9,7 +9,7 @@ import {
   addToWishlist,
   removeFromWishlist,
   isProductInWishlist,
-} from "@/firebase/service";
+} from "@/firebase/wishlistService";
 
 function ProductDetails({ productId }) {
   const [product, setProduct] = useState(null);
@@ -45,7 +45,7 @@ function ProductDetails({ productId }) {
   const handleToggleWishlist = async () => {
     try {
       if (isInWishlist) {
-        removeFromWishlist(productId)
+       await removeFromWishlist(productId)
           .then(() => {
             console.log("Produk dihapus dari wishlist.");
             setIsInWishlist(false);

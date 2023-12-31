@@ -107,9 +107,9 @@ export async function addToCart(productId, quantity) {
 
 export async function retrieveCartWithProductDetails() {
   try {
-    const userId = currentUser?.uid; // Dapatkan ID pengguna saat ini
+    const userId = currentUser?.uid;
     if (!userId) {
-      return []; // Kembalikan array kosong jika tidak ada pengguna yang masuk
+      return [];
     }
 
     const cartSnapshot = await getDocs(
@@ -164,58 +164,4 @@ export const DeleteAllCart = async () => {
   });
 
   await Promise.all(deletionPromises);
-};
-
-export const isProductInWishlist = async (productId) => {
-  const wishlistDoc = doc(firestore, "wishlist", productId);
-  const wishlistSnapshot = await getDoc(wishlistDoc);
-  return wishlistSnapshot.exists();
-};
-
-export const addToWishlist = async (productId, productData) => {
-  try {
-    const wishlistCollectionRef = collection(firestore, "wishlist");
-    await addDoc(wishlistCollectionRef, {
-      productId,
-      name: productData.name,
-      category: productData.category,
-      image: productData.image,
-      price: productData.price,
-      description: productData.description,
-    });
-    console.log("Produk ditambahkan ke wishlist.");
-  } catch (error) {
-    console.error("Gagal menambahkan produk ke wishlist:", error);
-    throw error;
-  }
-};
-
-export const removeFromWishlist = async (productId) => {
-  try {
-    const wishlistDoc = doc(firestore, "wishlist", productId);
-    await deleteDoc(wishlistDoc);
-
-    console.log("Produk dihapus dari wishlist.");
-    return true;
-  } catch (error) {
-    console.error("Gagal menghapus produk dari wishlist:", error);
-    throw error;
-  }
-};
-
-export const retrieveWishlist = async () => {
-  try {
-    const wishlistCollectionRef = collection(firestore, "wishlist");
-    const wishlistSnapshot = await getDocs(wishlistCollectionRef);
-
-    const wishlistData = wishlistSnapshot.docs.map((doc) => ({
-      productId: doc.id,
-      ...doc.data(),
-    }));
-
-    return wishlistData;
-  } catch (error) {
-    console.error("Gagal mengambil data wishlist:", error);
-    throw error;
-  }
 };

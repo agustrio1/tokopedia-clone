@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { retrieveWishlist, addToWishlist } from "../../firebase/service";
+import { retrieveWishlist, addToWishlist } from "../../firebase/wishlistService";
 import { FaPlus } from "react-icons/fa";
 import Header from "@/components/wishlist/Header";
 import Image from "next/image";
