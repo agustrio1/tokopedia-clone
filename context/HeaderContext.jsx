@@ -29,11 +29,20 @@ export const HeaderProvider = ({ children }) => {
 
   const updateHeaderBackground = (scrollPosition) => {
     const headerHeight = 60;
-    const alphaColorHeader = Math.min(scrollPosition / headerHeight, 1);
-    const startColor = "rgba(255, 255, 255, 0)";
-    const endColor = `rgba(255, 255, 255, ${alphaColorHeader})`;
-
-    setHeaderBackground({ startColor, endColor });
+    const isScrolled = scrollPosition > headerHeight;
+  
+    if (isScrolled) {
+      setHeaderBackground({
+        startColor: "white",
+        endColor: "white",
+      });
+    } else {
+      const alphaColorHeader = Math.min(scrollPosition / headerHeight, 1);
+      const startColor = "rgba(255, 255, 255, 0)";
+      const endColor = `rgba(255, 255, 255, ${alphaColorHeader})`;
+  
+      setHeaderBackground({ startColor, endColor });
+    }
   };
 
   return (

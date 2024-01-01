@@ -52,22 +52,22 @@ function ProductButton({ productId }) {
       <footer
         className={`fixed max-w-[600px] bottom-0 left-0 right-0 p-4 flex justify-between items-center mx-auto bg-white`}>
         <button
-          className={`text-md text-gray-700 p-1 border rounded-md box-border mr-3 ml-6`}
+          className={`text-md text-gray-700 p-1 border rounded-md box-border mr-3 ml-3 md:ml-6`}
           onClick={handleClosePopup}>
           <BiMessage />
         </button>
         <button
           onClick={handlePopup}
-          className={`text-md p-1 border-green-600 w-full border rounded-md box-border mr-4`}>
+          className={`text-md p-1 border-green-600 w-full border rounded-md box-border mr-2 md:mr-4`}>
           <span className="text-green-600 text-sm md:text-md font-semibold md:font-bold">
             Beli
           </span>
         </button>
         <button
           onClick={handlePopup}
-          className={`text-md text-white p-1 w-full bg-green-600 border rounded-md box-border mr-6`}>
-          <span className="text-sm md:text-md font-semibold md:font-bold">
-            + Tambah Keranjang
+          className={`flex text-sm md:text-md text-white p-1 w-full bg-green-600 border rounded-md box-border mr-1 md:mr-6`}>
+          <span className="text-[16px] py-1 md:text-md font-semibold md:font-bold mx-auto">
+            + Keranjang
           </span>
         </button>
       </footer>
@@ -92,7 +92,7 @@ function ProductButton({ productId }) {
             onClick={handleCart}
             className={`text-md text-white p-1 w-full bg-green-600 border rounded-md box-border mr-6`}>
             <span className="text-sm md:text-md font-semibold md:font-bold">
-              + Tambah Keranjang
+              + Keranjang
             </span>
           </button>
         </div>

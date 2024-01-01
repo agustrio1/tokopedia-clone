@@ -11,6 +11,21 @@ import {
   isProductInWishlist,
 } from "@/firebase/wishlistService";
 
+const formatDescription = (description) => {
+  const spefications = description.split('- ');
+  const filteredSpecs = spefications.filter((spec) => spec.trim() !== "");
+  const formattedSpecifications = filteredSpecs.map((spec, index) => (
+    <li key={index}>{spec.trim()}</li>
+  ))
+
+  return (
+    <ul>
+      {formattedSpecifications}
+    </ul>
+  )
+}
+
+
 function ProductDetails({ productId }) {
   const [product, setProduct] = useState(null);
   const [isInWishlist, setIsInWishlist] = useState(false);
@@ -71,18 +86,17 @@ function ProductDetails({ productId }) {
   return (
     <div className="min-h-screen max-w-[600px] mx-auto sm:w-full">
       <ProductHeader />
-      <div className="max-w-[500px] mt-12 mx-auto sm:w-full">
+      <div className="max-w-[500px] mt-12 mx-auto sm:w-full flex items-center justify-center overflow-x-hidden">
         <ProductImageSwiper products={products} />
       </div>
-      <div className={`max-w-[600px] mt-auto`}>
+      <div className={`max-w-[500px] mt-auto pl-3`}>
         <div
           className={` p-4 max-w-sm mx-auto sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl`}>
           <p className={`text-md md:text-xl font-bold mb-2`}>{product.name}</p>
           <p className={`text-gray-500 mb-2`}>{product.category}</p>
           <p className={`flex text-black font-bold mb-2 text-lg`}>
-            <span className="mr-2">Rp.</span>
+            <span className="mr-2">Rp{new Intl.NumberFormat("id-ID").format(product.price)}</span>
             <span className="flex items-center">
-              {new Intl.NumberFormat("id-ID").format(product.price)}
               <FaHeart
                 className={`ml-32 cursor-pointer ${
                   isInWishlist ? "text-red-500" : "text-gray-500"
@@ -92,7 +106,10 @@ function ProductDetails({ productId }) {
             </span>
           </p>
 
-          <p className={`text-gray-700 mb-4`}>{product.description}</p>
+          <div className={`text-gray-700 mb-14`}>
+            <h2>Deskripsi: </h2>
+            {formatDescription(product.description)}
+            </div>
         </div>
       </div>
       <ProductButton productId={productId} />
