@@ -53,7 +53,7 @@ const Navbar = () => {
           </Link>
           <span
             onClick={openNav}
-            className="p-[9px] bg-white rounded-md cursor-pointer">
+            className="p-[9px] rounded-md cursor-pointer">
             <RxHamburgerMenu
               className={`transition ease-in duration-150 ${
                 isNav ? "rotate-180" : "0"

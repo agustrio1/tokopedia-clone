@@ -10,28 +10,15 @@ import {
   removeFromWishlist,
   isProductInWishlist,
 } from "@/firebase/wishlistService";
-
-const formatDescription = (description) => {
-  const spefications = description.split('- ');
-  const filteredSpecs = spefications.filter((spec) => spec.trim() !== "");
-  const formattedSpecifications = filteredSpecs.map((spec, index) => (
-    <li key={index}>{spec.trim()}</li>
-  ))
-
-  return (
-    <ul>
-      {formattedSpecifications}
-    </ul>
-  )
-}
-
+import Beadcrumb from "./Beadcrumb";
+import ProductDescription from "./ProductDescription"; 
 
 function ProductDetails({ productId }) {
   const [product, setProduct] = useState(null);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
+  useEffect(() => {   
     const fetchProduct = async () => {
       try {
         if (productId) {
@@ -60,7 +47,7 @@ function ProductDetails({ productId }) {
   const handleToggleWishlist = async () => {
     try {
       if (isInWishlist) {
-       await removeFromWishlist(productId)
+        await removeFromWishlist(productId)
           .then(() => {
             console.log("Produk dihapus dari wishlist.");
             setIsInWishlist(false);
@@ -86,30 +73,32 @@ function ProductDetails({ productId }) {
   return (
     <div className="min-h-screen max-w-[600px] mx-auto sm:w-full">
       <ProductHeader />
-      <div className="max-w-[500px] mt-12 mx-auto sm:w-full flex items-center justify-center overflow-x-hidden">
+      <div className="max-w-[500px] mt-12 mx-auto sm:w-full flex items-center justify-center overflow-x-hidden zIndex">
         <ProductImageSwiper products={products} />
       </div>
       <div className={`max-w-[500px] mt-auto pl-3`}>
         <div
           className={` p-4 max-w-sm mx-auto sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl`}>
-          <p className={`text-md md:text-xl font-bold mb-2`}>{product.name}</p>
-          <p className={`text-gray-500 mb-2`}>{product.category}</p>
-          <p className={`flex text-black font-bold mb-2 text-lg`}>
-            <span className="mr-2">Rp{new Intl.NumberFormat("id-ID").format(product.price)}</span>
+          <p className={`text-md md:text-lg font-bold mb-2`}>{product.name}</p>
+          <p className={`flex text-black font-bold mb-2 text-md justify-between`}>
+            <span className="mr-2">
+              Rp{new Intl.NumberFormat("id-ID").format(product.price)}
+            </span>
             <span className="flex items-center">
               <FaHeart
-                className={`ml-32 cursor-pointer ${
+                className={`cursor-pointer ${
                   isInWishlist ? "text-red-500" : "text-gray-500"
                 }`}
                 onClick={handleToggleWishlist}
               />
             </span>
           </p>
-
-          <div className={`text-gray-700 mb-14`}>
-            <h2>Deskripsi: </h2>
-            {formatDescription(product.description)}
-            </div>
+          <div className={`text-md  font-bold mb-2`}>
+            <Beadcrumb category={product.category} />
+          </div>
+          <ProductDescription
+            description={product.description}
+          />
         </div>
       </div>
       <ProductButton productId={productId} />

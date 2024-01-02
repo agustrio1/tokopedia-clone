@@ -10,7 +10,7 @@ function ProductImageSwiper({ products }) {
       width={360}
       height={420}
       // navigation
-      // pagination={{ clickable: true }}
+      pagination={{ clickable: true }}
       spaceBetween={1}
       slidesPerView={1}
       loop={true}
@@ -25,6 +25,7 @@ function ProductImageSwiper({ products }) {
         textAlign: "center",
         overflowX: "hidden",
         boxSizing : "border-box",
+        zIndex: "0",
       }}>
       {products.map((product) => (
         <SwiperSlide
@@ -37,7 +38,7 @@ function ProductImageSwiper({ products }) {
             width={320}
             height={420}
             priority={true}
-            className="mx-auto zIndex max-w-full h-auto relative"
+            className="mx-auto zIndex max-w-full h-auto relative zIndex"
             style={{ display: "flex", margin: "auto", alignItems: "center", }}
           />
         </SwiperSlide>
