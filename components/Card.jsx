@@ -10,23 +10,18 @@ const Card = ({productId}) => {
     const fetchData = async () => {
       try {
         const response = await fetch("/api/products");
-        if (response.ok) {
-          const result = await response.json();
-          setData(result);
-        } else {
-          console.error(
-            "Error fetching data:",
-            response.status,
-            response.statusText
-          );
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
+        const result = await response.json();
+        setData(result);
       } catch (err) {
-        console.error("Error fetching data:", err);
+        console.error("Error fetching data:", err.message);
       } finally {
         setLoading(false);
       }
     };
-
+    
     fetchData();
   }, []);
 
@@ -51,7 +46,7 @@ const Card = ({productId}) => {
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 max-w-screen-sm p-4 mx-auto mb-8">
-      {loading
+      {loading && !data.length
         ? renderPlaceholderCards(6)
         : data.map((item) => (
             <Link
