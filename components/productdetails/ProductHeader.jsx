@@ -55,7 +55,7 @@ function ProductHeader() {
         </button>
         <span
           onClick={openNav}
-          className="p-[9px] bg-white rounded-md cursor-pointer">
+          className="p-[9px]rounded-md cursor-pointer">
           <RxHamburgerMenu size={24} />
         </span>
       </div>

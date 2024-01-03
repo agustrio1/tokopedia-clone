@@ -1,11 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "@react-spring/web";
 import ProductPopupDetail from "./ProductPopupDetail";
+import { retriveDataById } from "@/firebase/service";
 
-const ProductDescription = ({ description, category }) => {
+const ProductDescription = ({ description, productId }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [originalDescription, setOriginalDescription] = useState(description);
+  const [product, setProduct] = useState(null);
+  const [category, setCategory] = useState(null);
+
+  useEffect(() => {
+      const fecthProduct = async () => {
+          try {
+            if (productId) {
+                const fetchedProduct = await retriveDataById("products", productId);
+                setProduct(fetchedProduct);
+                setCategory(fetchedProduct.category);
+            }
+          } catch (error) {
+            console.error("Error fetching product data:", error);
+          }
+      }
+      fecthProduct();
+  }, [productId]);
 
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
@@ -63,6 +81,7 @@ const ProductDescription = ({ description, category }) => {
             description={originalDescription}
             closePopup={closePopup}
             category={category}
+            product={product}
           />
         </animated.div>
         </>

@@ -12,8 +12,8 @@ const formatDescription = (description) => {
   return <ul>{formattedSpecifications}</ul>;
 };
 
-const ProductPopupDetail = ({ description, closePopup, category }) => {
-
+const ProductPopupDetail = ({ description, closePopup, product }) => {
+  const { category } = product || {};
   const popupAnimation = useSpring({
     maxHeight: "50vh",
   });
@@ -21,9 +21,11 @@ const ProductPopupDetail = ({ description, closePopup, category }) => {
   return (
     <animated.div style={popupAnimation} className={" mt-8"}>
       <h2 className="text-md font-bold mb-4">Detail Produk</h2>
-      <Beadcrumb category={category} />
-      <h2 className="text-md font-bold mb-4">Deskripsi</h2>
-      {formatDescription(description)}
+      <Beadcrumb category={category} includeHomeLink={true} />
+      <div className="mt-8">
+        <h2 className="text-md font-bold mb-4">Deskripsi</h2>
+        {formatDescription(description)}
+      </div>
     </animated.div>
   );
 };

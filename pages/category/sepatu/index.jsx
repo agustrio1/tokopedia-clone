@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { retriveData } from '@/firebase/service';
-import ProductCard from '../../../components/productdetails/ProductCard';
+import ProductCard from '@/components/productdetails/ProductCard';
 import Link from 'next/link';
 
-function HandphoneTablet() {
+function Sepatu() {
   const router = useRouter();
   const { category } = router.query;
   const [products, setProducts] = useState([]);
@@ -13,10 +13,10 @@ function HandphoneTablet() {
     const fetchProducts = async () => {
       try {
         const allProducts = await retriveData('products');
-        const smartphoneProducts = allProducts.filter(product => product.category === 'smartphone');
+        const smartphoneProducts = allProducts.filter(product => product.category === 'sepatu');
         setProducts(smartphoneProducts);
       } catch (error) {
-        console.error('Error fetching smartphone products:', error);
+        console.error('Error fetching sepatu products:', error);
       }
     };
 
@@ -39,4 +39,4 @@ function HandphoneTablet() {
   );
 }
 
-export default HandphoneTablet;
+export default Sepatu;
