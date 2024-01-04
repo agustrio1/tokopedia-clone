@@ -5,6 +5,8 @@ import Image from "next/image";
 const Card = ({productId}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [visibleproducts, setVisibleProducts] = useState(6);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +26,29 @@ const Card = ({productId}) => {
     
     fetchData();
   }, []);
+
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
+      if (!loadingMore) {
+        setLoadingMore(true);
+        setTimeout(() => {
+          setVisibleProducts((prev) => prev + 6);
+          setLoadingMore(false);
+        }, 800)
+        
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    }
+  })
 
   const renderPlaceholderCards = (count) => {
     const placeholderCards = [];
@@ -48,7 +73,7 @@ const Card = ({productId}) => {
     <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 max-w-screen-sm p-4 mx-auto mb-8">
       {loading && !data.length
         ? renderPlaceholderCards(6)
-        : data.map((item) => (
+        : data.slice(0, visibleproducts).map((item) => (
             <Link
               key={item.id}
               href={`/products/${item.id}`}
@@ -80,6 +105,7 @@ const Card = ({productId}) => {
               </div>
             </Link>
           ))}
+          {loadingMore && renderPlaceholderCards(6)}
     </div>
   );
 };
