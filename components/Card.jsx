@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-const Card = ({productId}) => {
+const Card = ({ productId }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [visibleproducts, setVisibleProducts] = useState(6);
+  const [visibleProducts, setVisibleProducts] = useState(6);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,32 +23,37 @@ const Card = ({productId}) => {
         setLoading(false);
       }
     };
-    
+
     fetchData();
   }, []);
 
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
-    ) {
-      if (!loadingMore) {
-        setLoadingMore(true);
-        setTimeout(() => {
-          setVisibleProducts((prev) => prev + 6);
-          setLoadingMore(false);
-        }, 800)
-        
-      }
-    }
-  }
-
   useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition =
+        window.scrollY ||
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+
+      if (
+        window.innerHeight + scrollPosition >=
+        document.documentElement.offsetHeight - 200
+      ) {
+        if (!loadingMore && visibleProducts < data.length) {
+          setLoadingMore(true);
+          setTimeout(() => {
+            setVisibleProducts((prev) => Math.min(prev + 6, data.length));
+            setLoadingMore(false);
+          }, 800);
+        }
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
-    }
-  })
+    };
+  }, [loadingMore, visibleProducts, data.length]);
 
   const renderPlaceholderCards = (count) => {
     const placeholderCards = [];
@@ -57,7 +62,8 @@ const Card = ({productId}) => {
       placeholderCards.push(
         <div
           key={`placeholder-${i}`}
-          className="bg-gray-300 p-2 shadow-lg rounded-md animate-pulse mx-2">
+          className="bg-gray-300 p-2 shadow-lg rounded-md animate-pulse mx-2"
+        >
           <div className="w-40 h-40 bg-gray-400 mb-4 items-center mx-auto"></div>
           <div className="h-4 bg-gray-400 mb-2"></div>
           <div className="h-4 bg-gray-400 mb-2"></div>
@@ -73,12 +79,16 @@ const Card = ({productId}) => {
     <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 max-w-screen-sm p-4 mx-auto mb-8">
       {loading && !data.length
         ? renderPlaceholderCards(6)
-        : data.slice(0, visibleproducts).map((item) => (
+        : data.slice(0, visibleProducts).map((item) => (
             <Link
               key={item.id}
               href={`/products/${item.id}`}
-              as={`/products/${item.id}`}>
-              <div key={item.id} className="bg-white p-2 shadow-lg rounded-md">
+              as={`/products/${item.id}`}
+            >
+              <div
+                key={item.id}
+                className="bg-white p-2 shadow-lg rounded-md"
+              >
                 <Image
                   src={item.image}
                   alt={item.name}
@@ -105,7 +115,7 @@ const Card = ({productId}) => {
               </div>
             </Link>
           ))}
-          {loadingMore && renderPlaceholderCards(6)}
+      {loadingMore && renderPlaceholderCards(6)}
     </div>
   );
 };
