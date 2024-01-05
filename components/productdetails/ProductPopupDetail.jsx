@@ -19,7 +19,7 @@ const ProductPopupDetail = ({ description, closePopup, product }) => {
   });
 
   return (
-    <animated.div style={popupAnimation} className={" mt-8"}>
+    <animated.div style={popupAnimation} className={" mt-8 zIndex1"}>
       <h2 className="text-md font-bold mb-4">Detail Produk</h2>
       <Beadcrumb category={category} includeHomeLink={true} />
       <div className="mt-8">

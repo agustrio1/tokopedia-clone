@@ -43,7 +43,7 @@ const ProductDescription = ({ description, productId }) => {
   });
 
   return (
-    <div className="text-gray-700 mb-16 max-h-svh relative">
+    <div className="text-gray-700 mb-16 max-h-svh relative zIndex1">
       <h2>Deskripsi: </h2>
       <ul>
         {showFullDescription
