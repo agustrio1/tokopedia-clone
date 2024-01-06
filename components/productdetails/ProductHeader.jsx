@@ -32,7 +32,7 @@ function ProductHeader() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 p-2 flex justify-between items-center max-w-[600px] mx-auto z-10 border-b"
+      className="fixed top-0 left-0 right-0 p-2 flex justify-between items-center max-w-[600px] mx-auto z-20 border-b"
       style={{
         background: `linear-gradient(to bottom, ${headerBackground.startColor}, ${headerBackground.endColor})`,
       }}>

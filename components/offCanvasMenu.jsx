@@ -13,7 +13,7 @@ const OffCanvasMenu = ({ closeNav }) => {
           <p className="ml-2">Menu utama</p>
         </span>
       </div>
-      <ul className="fixed mt-16 top-4 w-full h-full flex flex-col text-[15px] opacity-75 px-9">
+      <ul className="fixed mt-16 top-4 w-full h-full flex flex-col text-[15px] opacity-75 px-9 z-20">
         <div>
           <AuthMenu />
         </div>
