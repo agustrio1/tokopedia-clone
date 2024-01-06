@@ -50,7 +50,7 @@ function ProductButton({ productId }) {
   return (
     <>
       <footer
-        className={`fixed max-w-[600px] bottom-0 left-0 right-0 p-4 flex justify-between items-center mx-auto bg-white `}>
+        className={`fixed max-w-[600px] bottom-0 left-0 right-0 p-4 flex justify-between items-center mx-auto bg-white z-20 `}>
         <button
           className={`text-md text-gray-700 p-1 border rounded-md box-border mr-3 ml-3 md:ml-6`}
           onClick={handleClosePopup}>
