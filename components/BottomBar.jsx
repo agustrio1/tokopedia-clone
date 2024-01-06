@@ -66,7 +66,7 @@ const BottomBar = () => {
               priority={true}
               className="object-cover"
             />
-            <p className={`text-xs sm:text-sm ${activeIcon === item.icon ? 'text-green-500' : 'text-gray-500'}`}>{item.text}</p>
+            <p className={`text-xs sm:text-sm ${activeIcon === item.icon ? 'text-gray-700' : 'text-gray-500'}`}>{item.text}</p>
           </Link>
         ))}
       </div>

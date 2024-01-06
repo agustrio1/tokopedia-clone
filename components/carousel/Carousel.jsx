@@ -18,7 +18,9 @@ const CarouselComponent = () => {
         showArrows={false}
         showThumbs={false}
         showStatus={false}
-        interval={5000}>
+        interval={5000}
+        transitionTime={500}
+        >
         {images.map((image, index) => (
           <div key={index}>
             <Image
@@ -27,7 +29,7 @@ const CarouselComponent = () => {
               width={400}
               height={300}
               priority={true}
-              className="rounded-lg"
+              className="rounded-lg object-cover w-full h-full"
             />
           </div>
         ))}
