@@ -73,7 +73,7 @@ function ProductDetails({ productId }) {
   return (
     <div className="min-h-screen max-w-[600px] mx-auto sm:w-full">
       <ProductHeader />
-      <div className="max-w-[500px] mt-12 mx-auto sm:w-full flex items-center justify-center overflow-x-hidden zIndex">
+      <div className="max-w-[400px] mt-12 mx-auto sm:w-full flex items-center justify-center overflow-x-hidden zIndex">
         <ProductImageSwiper products={products} />
       </div>
       <div className={`max-w-[500px] mt-auto pl-3`}>

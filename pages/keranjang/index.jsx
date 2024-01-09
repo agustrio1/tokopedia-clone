@@ -8,6 +8,7 @@ import {
 import { FaPlus, FaMinus, FaHeart } from "react-icons/fa";
 import Header from "@/components/cart/Header";
 import Image from "next/image";
+import { retrieveWishlist, addToWishlist, removeFromWishlist } from "@/firebase/wishlistService";
 
 function Cart() {
   const [cartData, setCartData] = useState([]);
@@ -51,7 +52,35 @@ function Cart() {
     console.log("Total:", getTotal());
   };
 
-  const handleToggleWishlist = (itemId) => {};
+  const fecthWishlistItems = async () => {
+    try {
+      const wishlistData = await retrieveWishlist();
+      const wishlistItems = wishlistData.map((item) => item.productId);
+      return wishlistItems;
+    } catch (error) {
+      console.error("Error fetching wishlist items:", error);
+      return [];
+    }
+  }
+
+  const handleToggleWishlist = async (itemId) => {
+    try {
+      const isItemInWishlist = wishlistItems.includes(itemId);
+      const selectedItem = cartData.find((item) => item.id === itemId);
+  
+      if (selectedItem) {
+        if (isItemInWishlist) {
+          await removeFromWishlist(itemId);
+        } else {
+          await addToWishlist(itemId, selectedItem);
+        }
+      } else {
+        console.error("Gagal menemukan produk untuk ditambahkan ke wishlist");
+      }
+    } catch (error) {
+      console.error("Error mengelola wishlist:", error);
+    }
+  };
 
   return (
     <div className="mt-12 overflow-y-auto max-w-screen-[600px]">
@@ -120,12 +149,10 @@ function Cart() {
               </p>
               <div className="flex items-center mt-4 mx-auto">
                 <div className="mr-auto">
-                  <FaHeart
-                    onClick={() => handleToggleWishlist(item.id)}
-                    className={
-                      wishlistItems.includes(item.id) ? "text-pink-500" : ""
-                    }
-                  />
+                <FaHeart
+              onClick={() => handleToggleWishlist(item.id)}
+              className={wishlistItems.includes(item.id) ? "text-pink-500" : ""}
+            />
                 </div>
                 <div className="absolute top-1/2 transform -translate-y-1/2 right-0 mt-8">
                   <div className="flex items-center border border-gray-300 p-1 rounded-md">

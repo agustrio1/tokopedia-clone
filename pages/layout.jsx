@@ -4,7 +4,7 @@ import BottomBar from "../components/BottomBar";
 import Navbar from "../components/Navbar";
 import { HeaderProvider } from "@/context/HeaderContext";
 
- const Layout = ({ children }) => {
+const Layout = ({ children }) => {
   const router = useRouter();
   const isProductPage = router.pathname.includes("/products");
   const isCartPage = router.pathname.includes("/keranjang");
