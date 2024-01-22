@@ -74,7 +74,7 @@ function ProductButton({ productId }) {
 
       <animated.div
         style={popupAnimation}
-        className="fixed bottom-0 left-0 right-0 bg-white p-8 mt-8 flexflex-col justify-between items-center mx-auto">
+        className="fixed bottom-0 left-0 right-0 bg-white p-8 mt-8 flexflex-col justify-between items-center mx-auto z-40">
         <button
           onClick={handleClosePopup}
           className="text-lg text-gray-700 mb-4">
